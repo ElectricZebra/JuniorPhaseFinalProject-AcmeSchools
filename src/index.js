@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link, HashRouter, Route } from 'react-router-dom'
-import axios from 'axios'
-
-// const { Link, HashRouter, Route } = ReactRouterDOM;
+import { Link, HashRouter, Route } from 'react-router-dom';
+import axios from 'axios';
+import { Provider } from "react-redux";
+import store from './store';
 
 class Nav extends React.Component {
   constructor () {
@@ -21,6 +21,7 @@ class Nav extends React.Component {
     this.setState({students, schools})
   }
 
+
   render() {
     const { students, schools } = this.state;
     return (
@@ -29,6 +30,8 @@ class Nav extends React.Component {
         <Link to='/'>Home</Link>
         <Link to='/schools'>Schools ({ schools.length })</Link>
         <Link to='/students'>Students ({ students.length })</Link>
+        <Link to='/most-popular'>Most Popular School</Link>
+        <Link to='/highest-gpa'>Highest GPA School</Link>
       </div>
     )
   }
@@ -37,9 +40,11 @@ class Nav extends React.Component {
 class App extends React.Component {
   render(){
     return (
-      <HashRouter>
-        <Route path='/' component={ Nav } />
-      </HashRouter>
+      <Provider store={store}>
+        <HashRouter>
+          <Route path='/' component={ Nav } />
+        </HashRouter>
+      </Provider>
     )
   }
 }
