@@ -2,8 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunkMiddleware from 'redux-thunk'
 
-
-
 //action type
 const SET_STUDENTS = 'SET_STUDENTS';
 const SET_SCHOOLS = 'SET_SCHOOLS';
