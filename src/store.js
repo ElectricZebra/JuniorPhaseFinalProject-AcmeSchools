@@ -8,13 +8,12 @@ import thunk from 'redux-thunk'
 const SET_DATA = 'SET_DATA';
 
 //action creator
-
+const setData = () => {}
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case SET_DATA:
-      state = action.data;
-      break;
+      return action.data;
   default:
     return state;
   }
@@ -25,15 +24,14 @@ const reducer = (state = {}, action) => {
 const store = createStore(reducer);
 
 const start = async () => {
-  const students = await axios.get('/api/students')
-  const schools = await axios.get('api/schools')
-  const dataObj = {students: students.data, schools: schools.data}
-  console.log('dataObj', dataObj)
-  store.dispatch({ type: SET_DATA, data: dataObj })
+  const students = await axios.get('/api/students');
+  const schools = await axios.get('api/schools');
+  const dataObj = {students: students.data, schools: schools.data};
+  console.log('dataObj', dataObj);
+  await store.dispatch({ type: SET_DATA, data: dataObj });
+  console.log('store', store.getState())
 };
 
 start();
-
-console.log(store.getState())
 
 export default store;
