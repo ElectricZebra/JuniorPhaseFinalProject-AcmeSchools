@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
-import thunkMiddleware from 'redux-thunk'
+import thunk from 'redux-thunk';
+import loggerMiddleware from 'redux-logger';
 
 //action type
 const SET_STUDENTS = 'SET_STUDENTS';
@@ -31,8 +32,8 @@ const setStudents = () => {
   return async(dispatch) => {
     const response = await axios.get('api/students');
     return dispatch(_setStudents(response.data));
-  };
-};
+  }
+}
 
 const setSchools = () => {
   return async (dispatch)=> {
@@ -41,7 +42,9 @@ const setSchools = () => {
   };
 };
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+
+const middleWares = [thunk, loggerMiddleware];
+const store = createStore(reducer, applyMiddleware(...middleWares));
 
 export default store;
 
