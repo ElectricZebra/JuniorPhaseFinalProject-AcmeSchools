@@ -47,10 +47,26 @@ School.hasMany(Student);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const schools = ['SDSU', 'HSU', 'Cuesta', 'MiraCosta'];
+  const schools = ['Fullstack Academy', 'SDSU', 'HSU', 'Cuesta', 'MiraCosta'];
   await Promise.all(schools.map(name => School.create({ name })));
-  const students = ["Harry", "Larry", "Scary"];
-  await Promise.all(students.map(firstName => Student.create({ firstName })));
+  await Student.create({
+    firstName: 'Nick',
+    lastName: 'Regoli',
+    email: 'superBotanist@theBest.com',
+    gpa: 5.0
+  })
+  await Student.create({
+    firstName: 'JoeBob',
+    lastName: 'BobJoe',
+    email: 'dontMess@withTheBest.com',
+    gpa: 3.9
+  })
+  await Student.create({
+    firstName: 'Susie',
+    lastName: 'Regman',
+    email: 'sweet@vanillaBean.com',
+    gpa: 5.99999
+  })
 }
 
 module.exports = {

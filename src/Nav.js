@@ -7,8 +7,8 @@ const _Nav = ({ students, schools }) => {
     <div>
       <h1>Acme Schools</h1>
       <Link to='/'>Home</Link>
-      <Link to='/schools'>Schools ( )</Link>
-      <Link to='/students'>Students ()</Link>
+      <Link to='/schools'>Schools ({schools.length})</Link>
+      <Link to='/students'>Students ({students.length})</Link>
       <Link to='/most-popular'>Most Popular School</Link>
       <Link to='/highest-gpa'>School with Highest GPA</Link>
     </div>
@@ -23,6 +23,5 @@ const mapStateToProps = ({ students, schools }) => {
 }
 
 const Nav = connect(mapStateToProps)(_Nav);
-
 
 export default Nav;
