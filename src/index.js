@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link, HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { Provider, connect } from "react-redux";
 import store, { setStudents, setSchools } from './store';
 import Nav from './Nav';

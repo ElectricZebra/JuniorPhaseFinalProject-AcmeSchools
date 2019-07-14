@@ -6,6 +6,7 @@ import loggerMiddleware from 'redux-logger';
 //action type
 const SET_STUDENTS = 'SET_STUDENTS';
 const SET_SCHOOLS = 'SET_SCHOOLS';
+const CREATE_STUDENT = 'CREATE_STUDENT';
 
 const schoolsReducer = (state = [], action) => {
   switch(action.type){
@@ -19,6 +20,8 @@ const studentsReducer = (state = [], action) => {
   switch(action.type){
     case SET_STUDENTS:
       return action.students;
+    case CREATE_STUDENT:
+      //fill in
   }
   return state;
 }
@@ -52,10 +55,16 @@ const setSchools = () => {
   };
 };
 
+const createStudent = (data) => {
+  return async (dispatch) => {
+    await axios.post('api/students', data)
+  }
+}
+
 
 const middleWares = [thunk, loggerMiddleware];
 const store = createStore(reducer, applyMiddleware(...middleWares));
 
 export default store;
 
-export { setStudents, setSchools };
+export { setStudents, setSchools, createStudent };

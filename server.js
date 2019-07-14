@@ -24,18 +24,27 @@ app.get('/api/students', async (req, res, next) => {
     }
 });
 
-app.delete('/api/students:id', async (req, res, next) => {
+app.post('/api/students', async (req, res, next)=> {
   try {
-    await Student.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
+    console.log(req.params)
   }
-  catch (ex) {
+  catch (ex){
     next(ex)
   }
 })
+
+// app.delete('/api/students:id', async (req, res, next) => {
+//   try {
+//     await Student.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//   }
+//   catch (ex) {
+//     next(ex)
+//   }
+// })
 
 app.get('/api/schools', async (req, res, next) => {
   try {
