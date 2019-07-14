@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 import loggerMiddleware from 'redux-logger';
@@ -7,16 +7,26 @@ import loggerMiddleware from 'redux-logger';
 const SET_STUDENTS = 'SET_STUDENTS';
 const SET_SCHOOLS = 'SET_SCHOOLS';
 
-const reducer = (state = {}, action) => {
-  switch (action.type) {
-    case SET_STUDENTS:
-      return action.students;
+const schoolsReducer = (state = [], action) => {
+  switch(action.type){
     case SET_SCHOOLS:
       return action.schools;
-  default:
-    return state;
   }
+  return state;
 };
+
+const studentsReducer = (state = [], action) => {
+  switch(action.type){
+    case SET_STUDENTS:
+      return action.students;
+  }
+  return state;
+}
+
+const reducer = combineReducers({
+  students: studentsReducer,
+  schools: schoolsReducer
+});
 
 const _setStudents = (students) => ({
   type: SET_STUDENTS,
