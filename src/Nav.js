@@ -62,9 +62,11 @@ const mapDispatchToProps = (dispatch) => {
         firstName: event.target.firstName.value,
         lastName: event.target.lastName.value,
         email: event.target.email.value,
-        gpa: event.target.gpa.value
+        gpa: event.target.gpa.value,
+        schoolName: event.target.school.value
         //school: look into aquiring select form data
       }
+      console.log(event.target.school.value)
       event.preventDefault();
       clearForm();
       dispatch(createStudent(student))

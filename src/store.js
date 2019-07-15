@@ -84,7 +84,7 @@ const destroy = (id) => {
 }
 
 const middleWares = [thunk, loggerMiddleware];
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(...middleWares));
 
 export default store;
 

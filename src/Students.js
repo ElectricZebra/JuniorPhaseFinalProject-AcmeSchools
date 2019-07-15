@@ -10,7 +10,7 @@ const _Students = ({ students, deleteStudent }) => {
           <h4>{student.firstName} {student.lastName}</h4>
           <p>{ student.email }</p>
           <p>GPA: { student.gpa }</p>
-          <p>School: { student.school }</p>
+          <p>School: { student.schoolId }</p>
           <button id={student.id} onClick={ deleteStudent }>Delete</button>
           </li>
       })}

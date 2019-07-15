@@ -17,7 +17,11 @@ app.listen(port, () => console.log(`listening on port ${port}`));
 
 app.get('/api/students', async (req, res, next) => {
   try {
-    res.send(await Student.findAll())
+    res.send(await Student.findAll({
+      include: [{
+        model: School
+      }]
+    }))
     }
     catch (ex) {
       next(ex)
@@ -26,11 +30,18 @@ app.get('/api/students', async (req, res, next) => {
 
 app.post('/api/students', async (req, res, next)=> {
   try {
+    const findSchool = await School.findOne({
+      where: {
+        name: req.body.schoolName
+      }
+    })
+    // console.log(findSchool)
     const newStudent = await Student.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      gpa: req.body.gpa
+      gpa: req.body.gpa,
+      schoolId: findSchool.id
     })
     res.send(newStudent)
   }
