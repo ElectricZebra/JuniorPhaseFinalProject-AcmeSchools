@@ -7,6 +7,7 @@ import loggerMiddleware from 'redux-logger';
 const SET_STUDENTS = 'SET_STUDENTS';
 const SET_SCHOOLS = 'SET_SCHOOLS';
 const CREATE_STUDENT = 'CREATE_STUDENT';
+const DESTROY = 'DESTROY';
 
 const schoolsReducer = (state = [], action) => {
   switch(action.type){
@@ -21,8 +22,10 @@ const studentsReducer = (state = [], action) => {
     case SET_STUDENTS:
       return action.students;
     case CREATE_STUDENT:
-      //fill in
       return [...state, action.student];
+    case DESTROY:
+      const removeStudent = state.filter(student => student.id !== action.id)
+      return [...removeStudent]
   }
   return state;
 }
@@ -31,6 +34,11 @@ const reducer = combineReducers({
   students: studentsReducer,
   schools: schoolsReducer
 });
+
+const _destroy = (id) => ({
+  type: DESTROY,
+  id
+})
 
 const _setStudents = (students) => ({
   type: SET_STUDENTS,
@@ -68,10 +76,16 @@ const createStudent = (student) => {
   }
 }
 
+const destroy = (id) => {
+  return async (dispatch) => {
+    await axios.delete(`api/students/${id}`)
+    return dispatch(_destroy(id))
+  }
+}
 
 const middleWares = [thunk, loggerMiddleware];
-const store = createStore(reducer, applyMiddleware(...middleWares));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
 
-export { setStudents, setSchools, createStudent };
+export { setStudents, setSchools, createStudent, destroy };

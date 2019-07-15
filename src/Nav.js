@@ -12,7 +12,7 @@ const _Nav = ({ students, schools, handleSubmit }) => {
       <Link to='/students'>Students ({students.length})</Link>
       <Link to='/most-popular'>Most Popular School</Link>
       <Link to='/highest-gpa'>School with Highest GPA</Link>
-      <form onSubmit={ handleSubmit }>
+      <form id='createStudent' onSubmit={ handleSubmit }>
         <label>
           First Name:
           <input type='text' name="firstName"/>
@@ -50,6 +50,11 @@ const mapStateToProps = ({ students, schools }) => {
   }
 }
 
+const clearForm = () => {
+  document.getElementById('createStudent').reset();
+}
+
+//add error handling for duplicate email in DB
 const mapDispatchToProps = (dispatch) => {
   return {
     handleSubmit: (event)=>{
@@ -61,11 +66,10 @@ const mapDispatchToProps = (dispatch) => {
         //school: look into aquiring select form data
       }
       event.preventDefault();
+      clearForm();
       dispatch(createStudent(student))
     }
   }
 }
 
-const Nav = connect(mapStateToProps, mapDispatchToProps)(_Nav);
-
-export default Nav;
+export default connect(mapStateToProps, mapDispatchToProps)(_Nav);
