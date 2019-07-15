@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
+import { createStudent } from './store';
 
 const _Nav = ({ students, schools, handleSubmit }) => {
   return (
@@ -51,15 +52,16 @@ const mapStateToProps = ({ students, schools }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmit: (ev)=>{
-      const data = {
-        firstName: ev.target.firstName,
-        lastName: ev.target.lastName,
-        email: ev.target.email,
-        gpa: ev.target.gpa
-        //school: ev.target.school //look into select form
+    handleSubmit: (event)=>{
+      const student = {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        gpa: event.target.gpa.value
+        //school: look into aquiring select form data
       }
-      dispatch(data)
+      event.preventDefault();
+      dispatch(createStudent(student))
     }
   }
 }

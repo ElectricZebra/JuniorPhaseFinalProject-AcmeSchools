@@ -22,6 +22,7 @@ const studentsReducer = (state = [], action) => {
       return action.students;
     case CREATE_STUDENT:
       //fill in
+      return state;
   }
   return state;
 }
@@ -41,6 +42,11 @@ const _setSchools = (schools) => ({
   schools
 });
 
+const _createStudent = (student) => ({
+  type: CREATE_STUDENT,
+  student
+});
+
 const setStudents = () => {
   return async(dispatch) => {
     const response = await axios.get('api/students');
@@ -55,15 +61,16 @@ const setSchools = () => {
   };
 };
 
-const createStudent = (data) => {
+const createStudent = (student) => {
   return async (dispatch) => {
-    await axios.post('api/students', data)
+    await axios.post('api/students', student);
+    return dispatch(_createStudent(student));
   }
 }
 
 
 const middleWares = [thunk, loggerMiddleware];
-const store = createStore(reducer, applyMiddleware(...middleWares));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
 
