@@ -35,7 +35,6 @@ app.post('/api/students', async (req, res, next)=> {
         name: req.body.schoolName
       }
     })
-    // console.log(findSchool)
     const newStudent = await Student.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -43,7 +42,16 @@ app.post('/api/students', async (req, res, next)=> {
       gpa: req.body.gpa,
       schoolId: findSchool.id
     })
-    res.send(newStudent)
+    //TODO figure out more efficent way to send school data with newStudent
+    const studentSchool = await Student.findOne({
+      where: {
+        email: req.body.email
+      },
+      include: [{
+        model: School
+      }]
+    })
+    res.send(studentSchool)
   }
   catch (ex){
     next(ex)
