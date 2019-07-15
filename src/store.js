@@ -24,8 +24,7 @@ const studentsReducer = (state = [], action) => {
     case CREATE_STUDENT:
       return [...state, action.student];
     case DESTROY:
-      const removeStudent = state.filter(student => student.id !== action.id)
-      return [...removeStudent]
+      return state.filter(student => student.id !== action.id);
   }
   return state;
 }

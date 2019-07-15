@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 const _Schools = ({ schools, students }) => {
   return (
@@ -7,7 +8,9 @@ const _Schools = ({ schools, students }) => {
       { schools.map( school => {
         const schoolStudents = students.filter(student => student.schoolId === school.id);
         return <li key={ school.id }>
+          <Link to={`/schools/${school.id}`}>
           {school.name} ({schoolStudents.length})
+          </Link>
       </li>})
       }
     </ul>

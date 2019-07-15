@@ -6,7 +6,7 @@ import store, { setStudents, setSchools } from './store';
 import Nav from './Nav';
 import Students from './Students';
 import Schools from './Schools';
-
+import School from './School';
 
 class _App extends React.Component {
   componentDidMount(){
@@ -18,7 +18,8 @@ class _App extends React.Component {
         <HashRouter>
           <Route path='/' component={ Nav } />
           <Route path='/students' component={ Students } />
-          <Route path='/schools' component={ Schools } />
+          <Route path='/schools' exact component={ Schools } />
+          <Route path='/schools/:id' component={ School } />
         </HashRouter>
     )
   };

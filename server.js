@@ -35,14 +35,14 @@ app.post('/api/students', async (req, res, next)=> {
         name: req.body.schoolName
       }
     })
-    const newStudent = await Student.create({
+    await Student.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       gpa: req.body.gpa,
       schoolId: findSchool.id
     })
-    //TODO figure out more efficent way to send school data with newStudent
+    //TODO figure out a more efficent way to send school data with newStudent
     const studentSchool = await Student.findOne({
       where: {
         email: req.body.email
@@ -57,6 +57,7 @@ app.post('/api/students', async (req, res, next)=> {
     next(ex)
   }
 })
+
 
 app.delete('/api/students/:id', async (req, res, next) => {
   try {
@@ -81,4 +82,5 @@ app.get('/api/schools', async (req, res, next) => {
     next(ex)
   }
 });
+
 
