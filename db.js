@@ -79,6 +79,18 @@ const syncAndSeed = async () => {
     lastName: 'Regman',
     email: 'sweet@vanillaBean.com',
     gpa: 5.99999})
+  await Student.create({
+    firstName: 'Cool',
+    lastName: 'Man',
+    email: 'sweet@email.net',
+    gpa: 5.0,
+    schoolId: "c141e7d9-f429-4992-a485-5f0cdd36a042"})
+  await Student.create({
+    firstName: 'Kelly',
+    lastName: 'Shralper',
+    email: 'getting@tubed.wave',
+    gpa: 1.3,
+    schoolId: "c141e7d9-f429-4992-a485-5f0cdd36a042"})
 }
 
 module.exports = {
@@ -88,3 +100,4 @@ module.exports = {
     School
   }
 }
+

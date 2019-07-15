@@ -27,7 +27,7 @@ const _Nav = ({ students, schools, handleSubmit }) => {
         </label>
         <label>
           GPA:
-          <input type='number' min='0' max='5' step='.01' name="gpa" required/>
+          <input type='number' min='0' max='5' step='.01' name="gpa" required defaultValue={3.5}/>
         </label>
         <label>
           Enrolled at:

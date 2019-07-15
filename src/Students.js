@@ -12,7 +12,7 @@ const _Students = ({ students, deleteStudent }) => {
           <p>{ student.email }</p>
           <p>GPA: { student.gpa }</p>
           <p>School: { school.name }</p>
-          <button id={student.id} onClick={ deleteStudent }>Delete</button>
+          <button className={student.id} onClick={ deleteStudent }>Delete</button>
           </li>
       })}
     </ul>
@@ -28,7 +28,7 @@ const mapStateToProps = ({ students }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteStudent: (ev)=>{
-      dispatch(destroy(ev.target.id))
+      dispatch(destroy(ev.target.className))
     }
   }
 }
