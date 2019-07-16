@@ -15,6 +15,7 @@ const School = conn.define('school', {
   imageURL: Sequelize.TEXT
 });
 
+
 const Student = conn.define('student', {
   id: {
     type: conn.Sequelize.UUID,

@@ -18,6 +18,30 @@ const _Nav = ({ students, schools }) => {
 }
 
 const mapStateToProps = ({ students, schools }) => {
+  // const tally = async ()=> {
+  //   const acc = {}
+  //   for (let i=0; i < students.length; i++) {
+  //   const sId = students[i].schoolId;
+  //   if (!sId){
+  //   }
+  //   else if (!acc[sId]) {
+  //     acc[sId] = 1;
+  //   }
+  //   else {
+  //     acc[sId] = acc[sId] + 1;
+  //   }};
+  //   return acc
+  // }
+  // console.log(tally)
+  // // const mostPopId = '';
+  // // if (Object.keys(acc)){
+  // //   console.log('no acc')
+  // // }
+
+  // Object.keys(acc).reduce((a, val)=> acc[a] > acc[val] ? a : val)
+
+  // console.log('mostPopId', mostPopId);
+  // console.log('acc', acc)
   return {
     students,
     schools
