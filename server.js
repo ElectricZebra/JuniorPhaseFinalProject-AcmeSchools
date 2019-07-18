@@ -58,6 +58,31 @@ app.post('/api/students', async (req, res, next)=> {
   }
 })
 
+app.post('/api/students/:id', async(req, res, next) => {
+  try {
+    const updateSchool = await Student.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    updateSchool.schoolId = req.body.schoolId
+    await updateSchool.save({fields: ['schoolId']})
+    const updated = await Student.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: School
+      }]
+    })
+    res.send(updated)
+  }
+  catch (ex) {
+    next(ex);
+  }
+})
+
+
 
 app.delete('/api/students/:id', async (req, res, next) => {
   try {

@@ -8,6 +8,7 @@ const SET_STUDENTS = 'SET_STUDENTS';
 const SET_SCHOOLS = 'SET_SCHOOLS';
 const CREATE_STUDENT = 'CREATE_STUDENT';
 const DESTROY = 'DESTROY';
+const CHANGE_SCHOOL = 'CHANGE_SCHOOL'
 
 const schoolsReducer = (state = [], action) => {
   switch(action.type){
@@ -25,6 +26,14 @@ const studentsReducer = (state = [], action) => {
       return [...state, action.student];
     case DESTROY:
       return state.filter(student => student.id !== action.id);
+    case CHANGE_SCHOOL:
+      return state.map(student => {
+        if (student.id !== action.student.id) {
+          return student
+        } else {
+          return action.student
+        }
+      })
   }
   return state;
 }
@@ -37,6 +46,11 @@ const reducer = combineReducers({
 const _destroy = (id) => ({
   type: DESTROY,
   id
+})
+
+const _changeSchool = (student) => ({
+  type: CHANGE_SCHOOL,
+  student
 })
 
 const _setStudents = (students) => ({
@@ -82,9 +96,17 @@ const destroy = (id) => {
   }
 }
 
+const changeSchool = (schoolId, studentId) => {
+  return async (dispatch) => {
+    const response = await axios.post(`api/students/${studentId}`, {schoolId: schoolId})
+    console.log(response)
+    return dispatch(_changeSchool(response.data))
+  }
+}
+
 const middleWares = [thunk, loggerMiddleware];
 const store = createStore(reducer, applyMiddleware(...middleWares));
 
 export default store;
 
-export { setStudents, setSchools, createStudent, destroy };
+export { setStudents, setSchools, createStudent, destroy, changeSchool };
