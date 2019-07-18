@@ -17,6 +17,7 @@ const _Nav = ({ students, schools, popName, popVal, popId, topId, topGPA, topNam
   )
 }
 
+//TODO fix top school on update
 const mapStateToProps = ({ students, schools }) => {
   let popName;
   let popVal;

@@ -79,12 +79,13 @@ const syncAndSeed = async () => {
     firstName: 'Susie',
     lastName: 'Regman',
     email: 'sweet@vanillaBean.com',
-    gpa: 5.99999})
+    gpa: 3,
+    schoolId: "97564609-5f68-4dfb-aaad-b434103e7b5a"})
   await Student.create({
     firstName: 'Cool',
     lastName: 'Man',
     email: 'sweet@email.net',
-    gpa: 5.0,
+    gpa: 2,
     schoolId: "c141e7d9-f429-4992-a485-5f0cdd36a042"})
   await Student.create({
     firstName: 'Kelly',

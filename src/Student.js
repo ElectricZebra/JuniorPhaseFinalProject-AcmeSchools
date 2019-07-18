@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { destroy } from './store';
 
 const _Student = ({ student, schools, deleteStudent })=> {
-  console.log(student)
   return <div>
     <h4>{student.firstName} {student.lastName}</h4>
     <p>{ student.email }</p>

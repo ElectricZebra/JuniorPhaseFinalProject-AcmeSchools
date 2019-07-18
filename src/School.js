@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { destroy } from './store'
-import Update from './Update'
+import Student from './Student';
 
-const _School = ({school, schoolStudents, deleteStudent }) => {
+const _School = ({school, schoolStudents }) => {
   if (!school) {
     return null
   }
@@ -13,11 +12,7 @@ const _School = ({school, schoolStudents, deleteStudent }) => {
         <ul>
           { schoolStudents.map(student => {
             return <li key={student.id}>
-              <h4>{ student.firstName } { student.lastName }</h4>
-              <p>Email: { student.email }</p>
-              <p>GPA: { student.gpa }</p>
-              <button className={student.id} onClick={deleteStudent}>Delete</button>
-              <Update name={student}/>
+              <Student student={ student } />
             </li>
           }) }
         </ul>
@@ -34,13 +29,4 @@ const mapStateToProps = ({ schools, students }, { match }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteStudent: (ev) => {
-      console.log(ev.target.className)
-      dispatch(destroy(ev.target.className))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(_School);
+export default connect(mapStateToProps)(_School);
