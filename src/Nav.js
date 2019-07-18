@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import React from 'react';
 import  CreateStudent  from './CreateStudent';
 
-const _Nav = ({ students, schools }) => {
+const _Nav = ({ students, schools, popName, popVal }) => {
   return (
     <div>
       <h1>Acme Schools</h1>
       <Link to='/'>Home</Link>
       <Link to='/schools'>Schools ({schools.length})</Link>
       <Link to='/students'>Students ({students.length})</Link>
-      <Link to='/most-popular'>Most Popular School</Link>
+      <Link to='/most-popular'>Most Popular { popName } ({ popVal })</Link>
       <Link to='/highest-gpa'>School with Highest GPA</Link>
       <CreateStudent />
     </div>
@@ -32,17 +32,27 @@ const mapStateToProps = ({ students, schools }) => {
     }};
     return acc
   }
-  console.log(tally)
-  // const mostPopId = '';
-  // if (Object.keys(acc)){
-  //   console.log('no acc')
-  // }
 
-  // Object.keys(acc).reduce((a, val)=> acc[a] > acc[val] ? a : val)
+  let popName = '';
+  let popVal = 0;
 
-  // console.log('mostPopId', mostPopId);
-  // console.log('acc', acc)
+  if (Object.keys(tally()).length) {
+    const tallyObj = tally();
+    const popId = Object.keys(tallyObj).reduce((a, val)=> tallyObj[a] > tallyObj[val] ? a : val)
+    popVal = tallyObj[popId];
+    schools.map(school => {
+      for (let key in school) {
+        if (school.id === popId) {
+          popName = school.name;
+        }
+      }
+    })
+  }
+
+
   return {
+    popName,
+    popVal,
     students,
     schools
   }
