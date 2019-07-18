@@ -10,14 +10,23 @@ const _Nav = ({ students, schools, popName, popVal, popId, topId, topGPA, topNam
       <Link to='/'>Home</Link>
       <Link to='/schools'>Schools ({schools.length})</Link>
       <Link to='/students'>Students ({students.length})</Link>
-      <Link to={`/schools/${popId}`}>Most Popular { popName } ({ popVal })</Link>
-      <Link to={`/schools/${topId}`}>Top School { topName } ({ topGPA })</Link>
+      <Link to={`/schools/${popId}`}>Most Popular: {popName} ({popVal})</Link>
+      <Link to={`/schools/${topId}`}>Top School: {topName} ({topGPA})</Link>
       <CreateStudent />
     </div>
   )
 }
 
 const mapStateToProps = ({ students, schools }) => {
+
+  let popName;
+  let popVal;
+  let popId = '';
+  let topId = '';
+  let topGPA;
+  let topName;
+
+if (Object.keys(students).length) {
   const tally = ()=> {
     const acc = {}
     for (let i=0; i < students.length; i++) {
@@ -27,44 +36,48 @@ const mapStateToProps = ({ students, schools }) => {
       else if (!acc[sId]) {
         acc[sId] = {
           count: 1,
-          av: students[i].gpa
+          sum: students[i].gpa
         };
       }
       else {
         acc[sId] = {
-          av: (acc[sId].av + students[i].gpa) / (acc[sId].count + 1),
-          count: acc[sId].count +1
+          count: acc[sId].count +1,
+          sum: acc[sId].sum + students[i].gpa
         };
       }
     };
     return acc
   }
-console.log(tally())
-  let popName;
-  let popVal;
-  let popId = '';
-  let topId = '';
-  let topGPA;
-  let topName;
+
+  const _topId = () => {
+    if (Object.keys(tally()).length) {
+    const tallyObj = tally();
+    return Object.keys(tallyObj).reduce((a, val) =>
+    tallyObj[a].sum/tallyObj[a].count >
+    tallyObj[val].count/tallyObj[val].count ?
+    a : val);
+    }
+  }
 
   //following statement sets popName/Val/Id and topName/Val/Id
-  if (Object.keys(tally()).length) {
     const tallyObj = tally();
-    const _popId = Object.keys(tallyObj).reduce((a, val)=> tallyObj[a].count > tallyObj[val].count ? a : val);
-    const _topId = Object.keys(tallyObj).reduce((a, val)=> tallyObj[a].av > tallyObj[val].av ? a : val);
-    topId = _topId
-    topGPA = tallyObj[_topId].av;
-    popId = _popId;
-    popVal = tallyObj[_popId].count;
+    const _popId = ()=> Object.keys(tallyObj).reduce((a, val)=> tallyObj[a].count > tallyObj[val].count ? a : val);
+
+    popId = _popId();
+    topId = _topId();
+    popVal = tallyObj[popId].count;
+    topGPA = tallyObj[topId].sum/tallyObj[topId].count;
+
     schools.map(school => {
       for (let key in school) {
-        if (school.id === _popId) {
+        if (school.id === popId) {
           popName = school.name;
-        } else if (school.id === _topId) {
+        } else if (school.id === topId) {
           topName = school.name;
         }
       }
     })
+
   }
 
   return {
