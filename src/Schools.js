@@ -11,6 +11,7 @@ const _Schools = ({ schools, students }) => {
           <Link to={`/schools/${school.id}`}>
           {school.name} ({schoolStudents.length})
           </Link>
+          <img src={school.imageURL} />
       </li>})
       }
     </ul>
