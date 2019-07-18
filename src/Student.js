@@ -8,10 +8,12 @@ const _Student = ({ student, schools, deleteStudent, changeSchool })=> {
     <p>{ student.email }</p>
     <p>GPA: { student.gpa }</p>
     <p>School: { student.school.name }</p>
+    <img src={student.school.imageURL} />
     <form>
       <label>Select School:
-        <select value={student.school.name} onChange={ changeSchool }>
+        <select onChange={ changeSchool } value={ student.school.id}>
           {schools.map(school => (
+            //need to fix default value
             <option key={school.id} value={school.id}>{school.name}
             </option>
           ))}
@@ -35,7 +37,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     changeSchool: (ev) => {
       console.log(ownProps.student.id)
-      console.log(ev.target.value)
+      console.log('key', ev.target.key)
       dispatch(changeSchool(ev.target.value, ownProps.student.id))
     }
   }
