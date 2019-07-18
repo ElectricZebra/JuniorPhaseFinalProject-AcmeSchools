@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { destroy } from './store'
+import Update from './Update'
 
 const _School = ({school, schoolStudents, deleteStudent }) => {
   if (!school) {
@@ -8,7 +9,7 @@ const _School = ({school, schoolStudents, deleteStudent }) => {
   }
   return (
     <div>
-      <h2>{ school.name } ({ schoolStudents.length })</h2>
+      <h2>{ school.name } (students enrolled { schoolStudents.length })</h2>
         <ul>
           { schoolStudents.map(student => {
             return <li key={student.id}>
@@ -16,6 +17,7 @@ const _School = ({school, schoolStudents, deleteStudent }) => {
               <p>Email: { student.email }</p>
               <p>GPA: { student.gpa }</p>
               <button className={student.id} onClick={deleteStudent}>Delete</button>
+              <Update name={student}/>
             </li>
           }) }
         </ul>

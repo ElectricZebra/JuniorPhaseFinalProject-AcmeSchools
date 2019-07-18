@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStudent } from './store';
 
+//TODO add error handling for duplicate email in store
 const _CreateStudent = ({ schools, handleSubmit }) => {
   return <form id="createStudent" onSubmit={handleSubmit}>
   <label>
