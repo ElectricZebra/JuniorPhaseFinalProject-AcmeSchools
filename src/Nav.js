@@ -11,7 +11,7 @@ const _Nav = ({ students, schools, popName, popVal, popId, topId, topGPA, topNam
       <Link to='/schools'>Schools ({schools.length})</Link>
       <Link to='/students'>Students ({students.length})</Link>
       <Link to={`/schools/${popId}`}>Most Popular: {popName} ({popVal})</Link>
-      <Link to={`/schools/${topId}`}>Top School: {topName} ({topGPA} average gpa)</Link>
+      <Link to={`/schools/${topId}`}>Top School: {topName} (Average GPA: {topGPA})</Link>
       <CreateStudent />
     </div>
   )

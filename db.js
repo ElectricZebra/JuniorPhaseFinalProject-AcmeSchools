@@ -69,8 +69,8 @@ const syncAndSeed = async () => {
     name: "MiraCosta",
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/CLC_%2812997780825%29_%28cropped%29.jpg'});
   await Student.create({
-    firstName: 'Nick',
-    lastName: 'Regoli',
+    firstName: 'Harry',
+    lastName: 'BigFoot',
     email: 'superBotanist@theBest.com',
     gpa: 5.0,
     schoolId: "44e28add-af37-42f5-b152-a0044cde8ca3"})
