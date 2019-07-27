@@ -105,7 +105,7 @@ const changeSchool = (schoolId, studentId) => {
 }
 
 const middleWares = [thunk, loggerMiddleware];
-const store = createStore(reducer, applyMiddleware(...middleWares));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
 

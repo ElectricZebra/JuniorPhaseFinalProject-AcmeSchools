@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { syncAndSeed, models } = require('./db');
+const { models } = require('./db');
 const { Student, School } = models
 
 router.get('/', async (req, res, next) => {

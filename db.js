@@ -1,5 +1,16 @@
 const Sequelize = require('sequelize');
+const hash = require('./utilities/hash')
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/acmeSchools', { logging: false })
+
+const Session = conn.define('session', {
+  sid: {
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  userId: Sequelize.STRING,
+  expires: Sequelize.DATE,
+  data: Sequelize.STRING(50000)
+});
 
 const School = conn.define('school', {
   id: {
@@ -39,11 +50,30 @@ const Student = conn.define('student', {
   },
   gpa: {
     type: Sequelize.FLOAT
-  }
+  },
+  password: {
+    type: Sequelize.STRING,
+  },
+  sessionId: Sequelize.STRING
 });
+
+Student.addHook('beforeCreate', (student) => {
+  student.password = hash(student.password)
+});
+
+Student.login = function (firstName, lastName, password) {
+  return this.findOne({
+    where: {
+      firstName,
+      lastName,
+      password: hash(password)
+    }
+  })
+}
 
 Student.belongsTo(School);
 School.hasMany(Student);
+
 
 
 const syncAndSeed = async () => {
@@ -73,38 +103,45 @@ const syncAndSeed = async () => {
     lastName: 'BigFoot',
     email: 'superBotanist@theBest.com',
     gpa: 5.0,
+    password: 'somedfdsfa',
     schoolId: "44e28add-af37-42f5-b152-a0044cde8ca3"})
   await Student.create({
     firstName: 'JoeBob',
     lastName: 'BobJoe',
     email: 'dontMess@withTheBest.com',
     gpa: 3.9,
+    password: 'someddfasfsfa',
     schoolId: "97564609-5f68-4dfb-aaad-b434103e7b5a"})
   await Student.create({
     firstName: 'Susie',
     lastName: 'Regman',
     email: 'sweet@vanillaBean.com',
     gpa: 3,
+    password: 'somedfdsfadfadfas',
     schoolId: "97564609-5f68-4dfb-aaad-b434103e7b5a"})
   await Student.create({
     firstName: 'Cool',
     lastName: 'Man',
     email: 'sweet@email.net',
     gpa: 2,
+    password: 'somedfasdfafasfadsf',
     schoolId: "c141e7d9-f429-4992-a485-5f0cdd36a042"})
   await Student.create({
     firstName: 'Kelly',
     lastName: 'Shralper',
     email: 'getting@tubed.wave',
     gpa: 1.3,
+    password: 'somedflil',
     schoolId: "c141e7d9-f429-4992-a485-5f0cdd36a042"})
 }
 
 module.exports = {
   syncAndSeed,
+  conn,
   models: {
     Student,
-    School
+    School,
+    Session
   }
 }
 
