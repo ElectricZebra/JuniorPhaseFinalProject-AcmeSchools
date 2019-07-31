@@ -45,20 +45,21 @@ app.get('/api/schools', async (req, res, next) => {
 
 app.use(async(req, res, next) => {
   try {
-    // console.log(req.session)
     if (req.session.id) {
       const sessionStudent = await Student.findOne({
           where: {
             sessionId: req.session.id
         }
       })
-      if (!sessionStudent) {
+      /*if (!sessionStudent) {
+        console.log('no sessionStudent')
         res.redirect('/')
       } else {
       req.user = sessionStudent
       next()
-      }
+      }*/
     }
+    next()
   }
   catch (err) {
     next(err)
@@ -75,27 +76,17 @@ app.use(async(req, res, next) => {
 //   }
 // })
 
-// app.post('/api/sessions', async (req, res, next) => {
-//   const { email, password } = req.body;
-//   try {
-//     if (email && password) {
-//       const user = await Student.findOne({
-//         where: {
-//           email: email,
-//           password: password
-//         }
-//       })
-//       await Session.create({
-//         sessionId: req.cookies,
-//         studentId: user.id
-//       })
-//     }
+app.post('/api/sessions', async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    if(email && password) {
 
-//   }
-//   catch (err) {
-//     next (err)
-//   }
-// })
+    } res.status(401).send('please enter email and password');
+  }
+  catch (err) {
+    next (err)
+  }
+})
 
 // app.delete('/api/sessions', (req, res, next) => {
 //   const { firstName, lastName, password } = req.body;

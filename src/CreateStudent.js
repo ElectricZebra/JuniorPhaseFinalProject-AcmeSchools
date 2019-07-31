@@ -5,6 +5,7 @@ import { createStudent } from './store';
 //TODO add error handling for duplicate email in store
 const _CreateStudent = ({ schools, handleSubmit }) => {
   return <form id="createStudent" onSubmit={handleSubmit}>
+    <h4>Create Student</h4>
   <label>
     First Name:
     <input type="text" name="firstName" required />

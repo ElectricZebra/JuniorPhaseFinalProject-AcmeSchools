@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
 import  CreateStudent  from './CreateStudent';
+import Login from './Login';
 
 const _Nav = ({ students, schools, popName, popVal, popId, topId, topGPA, topName }) => {
   return (
@@ -12,6 +13,7 @@ const _Nav = ({ students, schools, popName, popVal, popId, topId, topGPA, topNam
       <Link to='/students'>Students ({students.length})</Link>
       <Link to={`/schools/${popId}`}>Most Popular: {popName} ({popVal})</Link>
       <Link to={`/schools/${topId}`}>Top School: {topName} (Average GPA: {topGPA})</Link>
+      <Login />
       <CreateStudent />
     </div>
   )
